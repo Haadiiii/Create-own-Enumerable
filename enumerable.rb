@@ -1,31 +1,23 @@
-# Test #all?
-
-def number_finder(array)
-  array.all? { |element| element.even? }
-end
-
-array = [4, 8, 7, 3, 13, 9, 7, 11]
-puts number_finder(array)
-
-# Test #filter
-
-def number_selector(array)
-  even_numbers = []
-  array.each do |element|
-    even_numbers << element if element.even?
+class MyList
+  def initialize(list)
+    @list = list
   end
 
-  even_numbers
+  def myenumerable?
+    (@list % 2).zero?
+  end
 end
 
-array = [4, 8, 2, 3, 9, 7]
-puts number_selector(array)
+list = [MyList.new(2), MyList.new(3), MyList.new(6), MyList.new(8)]
+
+# Test #all?
+
+puts list.all?(&:myenumerable?)
 
 # Test #any?
 
-def number(array)
-  array.any? { |element| element.even? }
-end
+puts list.any?(&:myenumerable?)
 
-array = [4, 8, 7, 3, 13, 9, 7, 11]
-puts number(array)
+# # Test #filter
+
+puts list.filter(&:myenumerable?)
