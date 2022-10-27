@@ -1,23 +1,25 @@
-class MyList
-  def initialize(list)
-    @list = list
+module MyEnumerable
+  def all?
+    check_enum = true
+    each do |n|
+      check_enum = false unless yield n
+    end
+    check_enum
   end
 
-  def myenumerable?
-    (@list % 2).zero?
+  def any?
+    check_enum = false
+    each do |n|
+      check_enum = true if yield n
+    end
+    check_enum
+  end
+
+  def filter
+    check_enum = []
+    each do |n|
+      check_enum.push(n) if yield n
+    end
+    check_enum
   end
 end
-
-list = [MyList.new(2), MyList.new(3), MyList.new(6), MyList.new(8)]
-
-# Test #all?
-
-puts list.all?(&:myenumerable?)
-
-# Test #any?
-
-puts list.any?(&:myenumerable?)
-
-# # Test #filter
-
-puts list.filter(&:myenumerable?)
